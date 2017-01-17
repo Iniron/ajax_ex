@@ -10,6 +10,7 @@
 <script type="text/javascript">
 
 $("#btnSend").click(function(){
+	//aa
 	var num1 = $("#num1").val();
 	var num2 = $("#num2").val();
 	var oper = $("#oper").val();
