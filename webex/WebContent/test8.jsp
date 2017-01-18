@@ -14,7 +14,7 @@ $("#btnSend").click(function(){
 	var num1 = $("#num1").val();
 	var num2 = $("#num2").val();
 	var oper = $("#oper").val();
-	var url = "text8_ok.jsp";
+	var url = "test8_ok.jsp";
 	var query = "n1="+num1+"&n2="+num2;
 	query+="&oper="+oper;
 	

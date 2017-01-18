@@ -8,26 +8,53 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.4.min.js"></script>
 
 <script type="text/javascript">
-function send(){
-	var num1 = $("#num1").val();
-	var num2 = $("#num2").val();
-	var oper = $("#oper").val();
-	
-	//값 초기화
-	$("#num1").val("");
-	$("#num1").val("");
-	$("#num1").val("add");
-	
-	var url = "test5_ok.jsp";
-	
-	// AJAX GET 방식
-	// GET방식을 처리할 수 있는 첫번째 방식
-	$.get(url, {num1:num1, num2:num2, oper:oper}, function(data){
-		$("#resultLayout").html(data);
+$(function(){
+	$("#btnSend").click(function(){
+		var num1 = $("#num1").val();
+		var num2 = $("#num2").val();
+		var oper = $("#oper").val();
+			
+		var url = "test9_ok.jsp";
+		var query = "n1="+num1+"&n2="+num2;
+		query+="&oper="+oper;
+		
+		$.ajax({
+			type:"POST"
+			,url:url
+			,data:query
+			,success:function(data){
+				$("#resultLayout").html(data);
+				$("#num1").val("");
+				$("#num2").val("");
+				$("#oper").val("add");
+			}
+			,beforeSend:check
+			,error:function(e){
+				alert(e.responseText);
+			}
+		});
 	});
-	//위의 코드에서 num1:num1 -> 앞의 num1은 서버에서 전달 받을 파라미터의 이름, 뒤는 변수명
-	//function(data)에서 data -> 서버에서 돌아온 데이터
-}
+});
+
+
+function check(){
+	var num1 = $("#num1").val();
+	if(!num1){
+		$("#num1").focus();
+		return false;
+	}
+	var num2 = $("#num2").val();
+	if(!num2){
+		$("#num2").focus();
+		return false;
+	}
+	var oper = $("#oper").val();
+	if(!oper){
+		$("#oper").focus();
+		return false;
+	}
+	return true;
+} 
 </script>
 
 </head>
@@ -42,7 +69,7 @@ function send(){
 			<option value="div">나누기</option>
 		</select>
 		<input type="text" id="num2">
-		<input type="button" value=" = " onclick="send();"><br>
+		<input type="button" id="btnSend" value=" = "><br>
 		
 		<hr>
 		<div id = resultLayout></div>

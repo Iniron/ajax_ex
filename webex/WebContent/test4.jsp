@@ -40,7 +40,7 @@ function send() {
 	var query;
 	query = "name=" + name + "&content=" + content;
 	
-	var url = "text4_ok.jsp";
+	var url = "test4_ok.jsp";
 	
 	//AJAX 객체 생성
 	xmlHttp = createXMLHttpRequest();
@@ -108,6 +108,9 @@ function printData(){
 	이름: <input type="text" id="name"><br>
 	<textarea row="5" cols="40" id="content"></textarea>
 	<button type="button" onclick="send();">보내기</button>
+	
+	<hr>
+	<div id="resultLayout"></div>
 
 </body>
 </html>

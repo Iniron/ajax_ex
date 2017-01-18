@@ -18,7 +18,7 @@ function send(){
 	$("#num1").val("");
 	$("#num1").val("add");
 	
-	var url = "text7_ok.jsp";
+	var url = "test7_ok.jsp";
 	
 	// AJAX POST 방식
 	// GET방식을 처리할 수 있는 첫번째 방식

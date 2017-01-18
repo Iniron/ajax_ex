@@ -21,7 +21,7 @@ function send(){
 	var query = "num1="+num1+"&num2="+num2;
 	query+="&oper="+oper;
 		
-	var url = "text6_ok.jsp?" + query;
+	var url = "test6_ok.jsp?" + query;
 	
 	// AJAX GET 방식
 	// GET방식을 처리할 수 있는 두번째 방식

@@ -43,7 +43,7 @@ function send() {
 	query = "num1="+num1 + "&num2="+num2;
 	query += "&oper="+oper;
 	
-	var url = "text3_ok.jsp";
+	var url = "test3_ok.jsp";
 	
 	//AJAX °´Ã¼ »ý¼º
 	xmlHttp = createXMLHttpRequest();

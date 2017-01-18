@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="text1_ok.jsp" method="post">
+	<form action="test1_ok.jsp" method="post">
 		<input type="text" name="num1"><br>
 		<select name="oper">
 			<option value="add">´õÇÏ±â</option>
