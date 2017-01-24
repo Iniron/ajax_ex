@@ -74,7 +74,7 @@ function sendReply() {
 		return;
 	}
 	
-	var num="${dto.num};"
+	var num="${dto.num}";
 	var content=$("#replyContent").val().trim();
 	if(!content){
 		$("#replyContent").focus();
