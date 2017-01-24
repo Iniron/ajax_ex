@@ -385,6 +385,7 @@ public class BoardServlet extends MyServlet {
 		int total_page = 0;
 		int dataCount = 0;
 
+		//웹은 정적이기 때문에 다른사람이 게시글을 삭제 한다면 -> 나는 3page를 눌렀어도 1page를 보여주어야 한다.
 		dataCount = dao.dataCountReply(num);
 		total_page = util.pageCount(numPerPage, dataCount);
 		if (current_page > total_page)
@@ -419,6 +420,28 @@ public class BoardServlet extends MyServlet {
 	
 	private void deleteReply(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 리플 삭제 ---------------------------------------
-
+		
+		HttpSession session = req.getSession();
+		SessionInfo info = (SessionInfo)session.getAttribute("member");
+		
+		String isLogin="true";
+		String state="false";
+		if(info==null){
+			isLogin="false";
+		} else{
+			BoardDAO dao = new BoardDAOImpl();
+			int replyNum = Integer.parseInt(req.getParameter("replyNum"));
+			int result = dao.deleteReply(replyNum);
+			if(result==1)
+				state="true";
+		}
+		
+		JSONObject job = new JSONObject();
+		job.put("isLogin", isLogin);
+		job.put("state", state);
+		
+		resp.setContentType("text/html;charset=utf-8");
+		PrintWriter out=resp.getWriter();
+		out.print(job.toString());
 	}
 }

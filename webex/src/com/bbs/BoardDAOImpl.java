@@ -136,11 +136,19 @@ public class BoardDAOImpl implements BoardDAO{
 		try {
 			sb.append("SELECT * FROM (");
 			sb.append("    SELECT ROWNUM rnum, tb.* FROM (");
-			sb.append("        SELECT num, b.userId, userName, subject");
+			sb.append("        SELECT b.num, b.userId, userName, subject");
 			sb.append("            ,TO_CHAR(created, 'YYYY-MM-DD') created");
 			sb.append("            ,hitCount");
-			sb.append("            FROM bbs b JOIN member1 m ON b.userId=m.userId  ");
-			sb.append("	       ORDER BY num DESC");
+			sb.append("            ,NVL(replyCount, 0) replyCount");
+			sb.append("            FROM bbs b  ");
+			sb.append("            JOIN member1 m ON b.userId=m.userId  ");
+			sb.append("            LEFT OUTER JOIN  ");
+			sb.append("            (  ");
+			sb.append("                SELECT num, COUNT(*) replyCount  ");
+			sb.append("                FROM bbsReply WHERE answer=0  ");
+			sb.append("                GROUP BY num  ");
+			sb.append("            ) r ON b.num = r.num  ");
+			sb.append("	       ORDER BY b.num DESC");
 			sb.append("    ) tb WHERE ROWNUM <= ? ");
 			sb.append(") WHERE rnum >= ? ");
 
@@ -159,6 +167,7 @@ public class BoardDAOImpl implements BoardDAO{
 				dto.setSubject(rs.getString("subject"));
 				dto.setHitCount(rs.getInt("hitCount"));
 				dto.setCreated(rs.getString("created"));
+				dto.setReplyCount(rs.getInt("replyCount"));
 				
 				list.add(dto);
 			}
@@ -194,10 +203,19 @@ public class BoardDAOImpl implements BoardDAO{
 		try {
 			sb.append("SELECT * FROM (");
 			sb.append("    SELECT ROWNUM rnum, tb.* FROM (");
-			sb.append("        SELECT num, b.userId, userName, subject");
+			sb.append("        SELECT b.num, b.userId, userName, subject");
 			sb.append("            ,TO_CHAR(created, 'YYYY-MM-DD') created");
 			sb.append("            ,hitCount");
-			sb.append("            FROM bbs b JOIN member1 m ON b.userId=m.userId ");
+			sb.append("            ,NVL(replyCount, 0) replyCount");
+			sb.append("            FROM bbs b  ");
+			sb.append("            JOIN member1 m ON b.userId=m.userId  ");
+			sb.append("            LEFT OUTER JOIN  ");
+			sb.append("            (  ");
+			sb.append("                SELECT num, COUNT(*) replyCount  ");
+			sb.append("                FROM bbsReply WHERE answer=0  ");
+			sb.append("                GROUP BY num  ");
+			sb.append("            ) r ON b.num = r.num  ");
+			
 			if(searchKey.equals("userName"))
 				sb.append("        WHERE  INSTR(userName, ?) = 1  ");
 			else if(searchKey.equals("created"))
@@ -224,6 +242,7 @@ public class BoardDAOImpl implements BoardDAO{
 				dto.setSubject(rs.getString("subject"));
 				dto.setHitCount(rs.getInt("hitCount"));
 				dto.setCreated(rs.getString("created"));
+				dto.setReplyCount(rs.getInt("replyCount"));
 				
 				list.add(dto);
 			}

@@ -6,7 +6,14 @@ public class BoardDTO {
 	private String subject, content;
 	private String created;
 	private int hitCount;
+	private int replyCount;
 	
+	public int getReplyCount() {
+		return replyCount;
+	}
+	public void setReplyCount(int replyCount) {
+		this.replyCount = replyCount;
+	}
 	public int getListNum() {
 		return listNum;
 	}

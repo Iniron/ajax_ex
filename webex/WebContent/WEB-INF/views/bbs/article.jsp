@@ -67,6 +67,38 @@ function login(){
 	location.href="<%=cp%>/member/login.do";
 }
 
+function deleteReply(replyNum, page){
+	var uid="${sessionScope.member.userId}";
+	if(!uid){
+		login();	//댓글등록버튼을 눌렀을때 로그인이 안되었다면 로그인 창으로 넘긴다.
+		return;
+	}
+	
+	 if(confirm("댓긋을 삭제 하시 겠습니까 ? ")){
+		 var query="replyNum="+replyNum;
+			var url="<%=cp%>/bbs/deleteReply.do";
+			
+			$.ajax({
+				url:url
+				,type:"post"
+				,data:query
+				,dataType:"json"
+				,success:function(data){
+					if(data.isLogin=="false"){
+						login();		//로그인이 풀렸으면 로그인 창으로 넘긴다.
+					} else{
+						listPage(page);	
+					}
+				}
+				,error:function(e){
+					console.log(e.responseText);
+				}
+			});
+	 } else{
+		 return;
+	 }	
+}
+
 function sendReply() {
 	var uid="${sessionScope.member.userId}";
 	if(!uid){

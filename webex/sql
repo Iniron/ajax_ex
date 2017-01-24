@@ -1,0 +1,16 @@
+select num, subject from bbs;
+
+select * from BBSREPLY;
+
+select bbsReply.num, BBS.SUBJECT, bbsReply.count(*)
+from bbsReply inner join BBS on BBSREPLY.num = BBS.num
+group by bbsReply.num
+
+
+
+select b.num, subject, NVL(replyCount,0) replyCount from bbs b
+left outer join(
+	select num, count(*) replyCount
+	from bbsReply
+	group by num
+)r on b.num = r.num

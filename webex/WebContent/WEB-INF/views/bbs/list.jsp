@@ -82,6 +82,7 @@
 					      <td align="center">${dto.listNum}</td>
 					      <td align="left" style="padding-left: 10px;">
 					          <a href='${articleUrl}&num=${dto.num}'>${dto.subject}</a>
+					          <c:if test="${dto.replyCount!=0}">(${dto.replyCount})</c:if>
 					      </td>
 					      <td align="center">${dto.userName}</td>
 					      <td align="center">${dto.created}</td>
