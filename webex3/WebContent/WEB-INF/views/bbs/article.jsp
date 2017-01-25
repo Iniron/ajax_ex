@@ -118,20 +118,23 @@ function listAnswer(answer) {
 
 // 답글 버튼
 $(function(){
+	// 아래 주석은 안되는 경우임을 보여주는 소스이다.
 	// $(".btnReplyAnswerLayout").click(function(){
 	$("body").on("click", ".btnReplyAnswerLayout", function(){
 		var $trReplyAnswer = $(this).parent().parent().next();
+		//parent의 parent면 button의 아버지인 td의 아버지인 tr인데 그것의 next이기 때문에 -> tr class='replyAnswer'가 된다.
 		var $answerList = $trReplyAnswer.children().children().eq(0);
 		
 		var isVisible = $trReplyAnswer.is(':visible');
 		var replyNum = $(this).attr("data-replyNum");
-			
+		
+		//보이면 숨기고 , 숨어있으면 보인다.
 		if(isVisible) {
 			$trReplyAnswer.hide();
 		} else {
 			$trReplyAnswer.show();
             
-			// 답글 리스트
+			// 그리고 답글 리스트를 가져온다.
 			listAnswer(replyNum);
 		}
 		
